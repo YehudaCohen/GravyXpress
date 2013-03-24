@@ -1,0 +1,29 @@
+@(message: String, restaurantForm: Form[Restaurant])
+
+@import helper._
+
+@main("GravyXpress") {
+    
+    <h1>GravyXpress</h1>
+    <h2>For your restaurant in the cloud</h2>
+
+    <div id="about">
+    	<p>
+    		GravyXpress is a cloud based restaurant automation system focused on optimizing communication for your restaurant.
+    	</p>
+    </div>
+    <div id="signup">
+    	<h3>Use GravyXpress for your own website</h3>
+    
+
+    @form(routes.Application.createRestaurant()) {
+        
+        @inputText(restaurantForm("name"))
+        @inputText(restaurantForm("owner"))
+        
+        <input type="submit" value="Create">
+        
+    }
+
+    
+}
