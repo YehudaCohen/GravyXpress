@@ -1,0 +1,61 @@
+@(myRestaurant: Restaurant)
+
+@main(myRestaurant.name){
+	<style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+ <script type="text/javascript">$(document).ready(function(){	
+ 	$("#about").hide();
+
+  $("#about-btn").click(function(){
+    $("#home").hide();
+    $("#about").show();
+    $("#about-btn").attr('class','active');
+    $("#home-btn").attr('class','');
+  });
+  $("#home-btn").click(function(){
+    $("#about").hide();
+    $("#home").show();
+    $("#home-btn").attr('class','active');
+    $("#about-btn").attr('class','');
+  });
+}); </script>
+
+}{
+ 	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">@myRestaurant.name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active" id="home-btn"><a href="#">Home</a></li>
+              <li id="about-btn"><a href="#about" >About</a></li>
+              <li id="contact-btn"><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="home">
+
+      <h1>Hours of Operation</h1>
+      <p>@Html(myRestaurant.hours)</p>
+
+    </div>
+        <div class="container" id="about">
+
+      <h1>About</h1>
+      <p>@Html(myRestaurant.about)</p>
+
+    </div>
+
+}

@@ -8,6 +8,8 @@ import java.security.*;
 import play.Logger;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 @Entity
 public class Restaurant extends Model {
@@ -23,6 +25,9 @@ public class Restaurant extends Model {
 
 	@Required
 	public String password;
+
+	@Column(columnDefinition = "TEXT")
+	public String hours;
 
 	@Column(columnDefinition = "TEXT")
 	public String about;
@@ -57,6 +62,17 @@ public static String hashpw(String password) throws NoSuchAlgorithmException{
 	return new String(pwhash);
 	}
 
+/*
+Get date to automatically assign to restaurant.about. This code I found and did not write myself:
+http://stackoverflow.com/questions/2942857/how-to-convert-current-date-into-string-in-java
+*/
+public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+
+public static String now() {
+Calendar cal = Calendar.getInstance();
+SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+return sdf.format(cal.getTime());
+}
 
 public static void create(Restaurant restaurant){
 	try{
@@ -65,7 +81,10 @@ public static void create(Restaurant restaurant){
 	catch (NoSuchAlgorithmException e){
 		Logger.info(e.getMessage());
 	}
-	restaurant.about = "";
+	String hours = "Monday: \nTuesday: \nWednesday: \nThursday: \nFriday: \nSaturday: \nSunday: \n";
+	hours = hours.replaceAll("(\r\n|\r|\n|\n\r)","<br>");
+	restaurant.hours = hours; 
+	restaurant.about = "Created: "+ now();
 	restaurant.save();
 }
 

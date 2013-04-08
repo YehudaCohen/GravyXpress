@@ -14,15 +14,16 @@ public class Application extends Controller {
 	static Form<Restaurant> restaurantForm = Form.form(Restaurant.class);
 	
 	public static Result show(String restaurant) {
-
-	if (Restaurant.by_name(restaurant) == null){
+    Restaurant myRestaurant = Restaurant.by_name(restaurant);
+	if (myRestaurant == null){
 		  return badRequest("Error 404: We could not find the restaurant you requested!");
 	 }
 	 else{
-		  return ok("The restaurant named " + restaurant + " has been successfully created!");
+		  return ok(views.html.restauranthome.render(myRestaurant));
 	 }
 
   }
+
 
 
     public static Result index() {

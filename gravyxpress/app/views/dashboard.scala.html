@@ -6,21 +6,33 @@
 
 }{
     <div class="row-fluid">
-        <h2>GravyXpress -- @myRestaurantForm.get().name Dashboard</h2>
+        <h2>GravyXpress -- 
+
+            <a href="/@myRestaurantForm.get().name">@myRestaurantForm.get().name</a> Dashboard</h2>
     </div>
     <div class="container-fluid">
     <div class="row-fluid">
     <div class="span2">
     <!--Sidebar content-->
     <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#about">About section</a>
+    <br>
+    <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#hours">Hours section</a>
     </div>
     <div class="span10">    
         @form(routes.Protected.updateAbout(myRestaurantForm.get().id.toString)) {
         <div>
             @textarea(field = myRestaurantForm("about"), args = 'class -> "field span8",'_label -> "About Us", 'value ->myRestaurantForm.get().about)
-            <input class="btn btn-medium" value="update" type="submit">
-            }
+            <input class="btn btn-medium" value="Save" type="submit">
+            
         </div>
+    }
+        @form(routes.Protected.updateHours(myRestaurantForm.get().id.toString)) {
+        <div>
+            @textarea(field = myRestaurantForm("hours"), args = 'class -> "field span8",'_label -> "Hours of Operation", 'value ->myRestaurantForm.get().hours)
+            <input class="btn btn-medium" value="Save" type="submit">
+            
+        </div>
+    }
     <!--Body content-->
     </div>
     </div>

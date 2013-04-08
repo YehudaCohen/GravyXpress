@@ -8,6 +8,7 @@ create table restaurant (
   name                      varchar(255),
   owner                     varchar(255),
   password                  varchar(255),
+  hours                     TEXT,
   about                     TEXT,
   constraint pk_restaurant primary key (id))
 ;

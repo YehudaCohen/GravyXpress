@@ -15,6 +15,7 @@ GET		/logout						 controllers.Application.logout()
 GET		/dashboard/:id			   	 controllers.Protected.dashboard(id)
 
 POST	/dashboard/:id/about 		 controllers.Protected.updateAbout(id)
+POST	/dashboard/:id/hours 		 controllers.Protected.updateHours(id)
 
 GET     /:restaurant                 controllers.Application.show(restaurant)
 
