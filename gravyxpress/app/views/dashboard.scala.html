@@ -1,0 +1,28 @@
+ @(myRestaurantForm: Form[Restaurant])
+
+@import helper._
+@import helper.twitterBootstrap._
+    @main("Dashboard"){
+
+}{
+    <div class="row-fluid">
+        <h2>GravyXpress -- @myRestaurantForm.get().name Dashboard</h2>
+    </div>
+    <div class="container-fluid">
+    <div class="row-fluid">
+    <div class="span2">
+    <!--Sidebar content-->
+    <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#about">About section</a>
+    </div>
+    <div class="span10">    
+        @form(routes.Protected.updateAbout(myRestaurantForm.get().id.toString)) {
+        <div>
+            @textarea(field = myRestaurantForm("about"), args = 'class -> "field span8",'_label -> "About Us", 'value ->myRestaurantForm.get().about)
+            <input class="btn btn-medium" value="update" type="submit">
+            }
+        </div>
+    <!--Body content-->
+    </div>
+    </div>
+    </div>
+}

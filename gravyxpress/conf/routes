@@ -3,9 +3,20 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /:restaurant                controllers.Application.show(restaurant)
-POST	/							controllers.Application.createRestaurant()
+GET     /                            controllers.Application.index()
+
+POST	/							 controllers.Application.createRestaurant()
+
+GET		/login 						 controllers.Application.login()
+POST	/login					     controllers.Application.authenticate()
+
+GET		/logout						 controllers.Application.logout()
+
+GET		/dashboard/:id			   	 controllers.Protected.dashboard(id)
+
+POST	/dashboard/:id/about 		 controllers.Protected.updateAbout(id)
+
+GET     /:restaurant                 controllers.Application.show(restaurant)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,29 +1,142 @@
 @(message: String, restaurantForm: Form[Restaurant])
-
 @import helper._
+@import helper.twitterBootstrap._
 
-@main("GravyXpress") {
+@main("GravyXpress"){
+<script type="text/javascript">$(document).ready(function(){
+  $("#go").click(function(){
+    $("#signup").focus();
+    var top = $('#signup').offset().top;
+	$(window).scrollTop( top );
+  });
+}); </script>
+<style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
+
+    }{
+        <div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="muted">GravyXpress</h3>
+      </div>
+
+      <hr>
+
+      <div class="jumbotron">
+        <h1>For your restaurant in the cloud!</h1>
+        <p class="lead">GravyXpress is a cloud based restaurant automation system focused on optimizing communication for your restaurant.</p>
+        <div class="btn btn-large btn-success" id="go" >Sign up today</div>
+      </div>
+
+      <hr>
+
+      <div class="row-fluid marketing">
+        <div class="span6">
+
+    	<h4>Signup</h4>
+
     
-    <h1>GravyXpress</h1>
-    <h2>For your restaurant in the cloud</h2>
+   		 @form(routes.Application.createRestaurant()) {
+        
+        @inputText(field = restaurantForm("name"), 'placeholder -> "Name of Restaurant", 'id -> "signup", '_label -> "",'_showConstraints -> false)
 
-    <div id="about">
-    	<p>
-    		GravyXpress is a cloud based restaurant automation system focused on optimizing communication for your restaurant.
-    	</p>
+        @inputText(field = restaurantForm("owner"), 'placeholder-> "Username of Owner", '_label -> "", '_showConstraints -> false)
+
+        @inputPassword( field= restaurantForm("password"), 'placeholder-> "Password",'_label -> "", '_showConstraints -> false)
+
+        <input class="btn btn-medium btn-success" value="Create" type="submit">
+        
+    	}
+        </div>
+
+        <div class="span6">
+          <h4>Login</h4>
+          @form(routes.Application.authenticate()) {
+  <div class="clearfix  " id="login-owner_field">
+    <label for="login-owner"></label>
+    <div class="input">
+        
+    <input type="text" id="login-owner" name="login-owner" value="" placeholder="Username of Owner">
+
+        <span class="help-inline"></span>
+        <span class="help-block"></span> 
     </div>
-    <div id="signup">
-    	<h3>Use GravyXpress for your own website</h3>
-    
+</div>
 
-    @form(routes.Application.createRestaurant()) {
-        
-        @inputText(restaurantForm("name"))
-        @inputText(restaurantForm("owner"))
-        
-        <input type="submit" value="Create">
-        
-    }
 
-    
+  <div class="clearfix  " id="login-password_field">
+    <label for="login-password"></label>
+    <div class="input">
+        
+    <input type="password" id="login-password" name="login-password" placeholder="Password">
+
+        <span class="help-inline"></span>
+        <span class="help-block"></span> 
+    </div>
+</div>
+
+        <input class="btn btn-medium btn-success" type="submit" value="Login">
+        
+      }
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; GravyXpress 2013</p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+
+
+
 }
+
