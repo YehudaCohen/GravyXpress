@@ -1,4 +1,57 @@
-This is your new Play 2.1 application
-=====================================
+!GRAVYXPRESS! -- Yehuda Cohen's Readme
 
-This file will be packaged with your application, when using `play dist`.
+In order to run this project, you must have the Play! web framework installed and Java 6.0 or higher.
+
+The web application utilizes Twitter Bootstrap to enhance template design. JQuery is used to manipulate the DOM on the fly,
+and CSS is used to style the page.
+
+At this stage, the following user stories have been implemented:
+1) Creating a webpage for your restaurant
+	Restaurants or owners sharing usernames do not yet return an error.
+	Password security requirements should be implemented with regular expressions down the line.
+
+2) Updating the restaurant's about page
+	HTML needs to be escaped upon entry. This is not an immediate requirement given that a restaurant owner would only mess up their own website with any HTML injection. Security is in place to stop unauthorized editing. See 4.
+
+3) Updating the restaurant's hours page
+	HTML needs to be escaped upon entry. This is not an immediate requirement given that a restaurant owner would only mess up their own website with any HTML injection. Security is in place to stop unauthorized editing. See 4.
+
+
+4) Restaurant ower securely logging in and securely accessing his/her dashboard.
+	This is implemented with the SHA-256 hashing algorithm. In the future, a salt and secret key should be added.
+	Hashing should also be moved to the client side so as to minimize server load.
+
+The following unit tests have been conducted:
+
+/* Controller Classes */
+
+//Application.java//
+1) Before a restaurant has been created, its webpage returns a 404 error.
+2) After a restaurant has been created, its webpage is accessible from /:restaurant_name where :restaurant_name is the restaurant's name.
+3) Blank fields in restaurant creation return redirect to index page
+4) After a restaurant has been created, an owner can login:
+	4a) if his credentials are valid, a cookie is visible in the browser cookies. A redirect to dashboard route is returned.
+	4b) if his credentials are invalid, he is a bad request is returned with the required password hash and the received password hash.
+	4c) if the restaurant doesn't exist he receives a redirect to the login page.
+
+// Protected.java //
+1) When the cookie in a user's browser is invalid for a particular dashboard, a forbidden is returned.
+2) When the cookie in a user's browser is valid for a particular dashboard, a 200 is returned and the dashboard is rendered in the browser.
+3) When the cookie in a user's browser is invalid, modifying the About or Hours fields returns a forbidden.
+4) When the cookie in a user's browser is valid for a particular dashboard, and they update the About or Hours fields, a redirect to the dashboard is returned. The change in value reflects in the restaurant's website.
+
+/* Model Classes */
+
+// Restaurant.java //
+1) When save() is called on a restaurant without required fields filled in an exception occurs.
+2) When by_name(name) is called on a non-existing restaurant, null is recorded.
+3) When by_name(name) is called on an existing restaurant my_restaurant, my_restaurant.name = name
+4) When by_owner(owner) is called on a non-existing restaurant, null is recorded.
+5) When by_owner(owner) is called on an existing restaurant my_restaurant, my_restaurant.owner = owner
+6) hashpw(String my_password) returns the same hexadecimal string digest for each password = my_password
+7) hashpw(String rand_password[i]) returns different hexadecimal string digest for 10 different values of i
+8) now() returns current date time
+9) isOwner(restaurant, user) returns false if the (restaurant with id restaurant).owner != user
+10) isOwner(restaurant, user) returns true if the (restaurant with id restaurant).owner == user
+11) after delete(id) is called on existing restaurant, find.byId() returns null
+

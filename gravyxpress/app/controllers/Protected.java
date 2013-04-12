@@ -24,13 +24,16 @@ public class Protected extends Controller {
 
 	Testing the case that a restaurant id did not exist, an error precipitated.
 	A try-catch block was implemented to resolve this.
+
+	Replacing the <br> with the \n is necessary when displaying in a textarea like the dashboard uses.
+	The owner should not need to write in HTML
 	*/
 	public static Result dashboard(String id){
 		if(Secured.isOwnerOf(Long.valueOf(id))) {
 			try{
 				Restaurant myRestaurant = Restaurant.find.byId(Long.valueOf(id));
-				myRestaurant.about = myRestaurant.about.replace("<br>","\n");
-				myRestaurant.hours = myRestaurant.hours.replace("<br>","\n");
+				myRestaurant.about = myRestaurant.about.replace("<br>","\n"); // A method for updating about needs to be added to the Restaurant class.
+				myRestaurant.hours = myRestaurant.hours.replace("<br>","\n"); // A method for updating hours needs to be added to the Restaurant class.
 				Form<Restaurant> myRestaurantForm = Application.restaurantForm.fill(myRestaurant);
 				return ok(views.html.dashboard.render(myRestaurantForm));
 			}
@@ -48,12 +51,16 @@ public class Protected extends Controller {
   The updateAbout method updates a restaurant's about field. and stores it to a database.
   It locates the restaurant entry using an ebean query and alters its about field before
   saving the changes to the database.
+
+  It returns a redirect to the dashboard once changes have been made.
+
+  If the cookie is no longer valid on the browser, a forbidden is returned.
   */	
   public static Result updateAbout(String id){
   	if(Secured.isOwnerOf(Long.valueOf(id))) {
 	    DynamicForm requestForm = DynamicForm.form().bindFromRequest();
 	    String about = requestForm.get("about");
-	    about = about.replaceAll("(\r\n|\r|\n|\n\r)", "<br>");
+	    about = about.replaceAll("(\r\n|\r|\n|\n\r)", "<br>"); //Saves all newlines as <br> to ease rendering on restaurant's homepage.
 	    Restaurant myRestaurant = Restaurant.find.byId(Long.valueOf(id));
 	    myRestaurant.about = about;
 	    myRestaurant.save();
@@ -65,7 +72,9 @@ public class Protected extends Controller {
   	}
   }
 
-
+/*
+Like update about just with the hours field.
+*/
 public static Result updateHours(String id){
   	if(Secured.isOwnerOf(Long.valueOf(id))) {
 	    DynamicForm requestForm = DynamicForm.form().bindFromRequest();
