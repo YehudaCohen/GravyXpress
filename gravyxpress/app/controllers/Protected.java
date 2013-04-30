@@ -90,4 +90,123 @@ public static Result updateHours(String id){
   		return forbidden("You do not have permission to use this resource!");
   	}
   }
+
+  public static Result newCat(String id){
+  	if(Secured.isOwnerOf(Long.valueOf(id))) {
+	    DynamicForm requestForm = DynamicForm.form().bindFromRequest();
+	    String name = requestForm.get("Add Category");
+	    Restaurant myRestaurant = Restaurant.find.byId(Long.valueOf(id));
+	    myRestaurant.menu.addCategory(name);
+	    myRestaurant.save();
+
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
+  public static Result newItem(String id, String cat){
+  	Long lId = Long.valueOf(id);
+  	Long lCat = Long.valueOf(cat);
+  	if(Secured.isOwnerOf(lId)) {
+	    DynamicForm requestForm = DynamicForm.form().bindFromRequest();
+	    String name = requestForm.get("name");
+	    Float price = Float.valueOf(requestForm.get("price"));
+	    String description = requestForm.get("description");
+	    
+	    Category myCategory = Category.find.byId( lCat);
+
+	    myCategory.addItem(name,price,description);
+	    myCategory.save();
+
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
+  public static Result removeItem(String id, String item){
+  	Long lId = Long.valueOf(id);
+  	Long lItem = Long.valueOf(item);
+  	if(Secured.isOwnerOf(lId)) {
+	    MenuItem.find.ref(lItem).delete();
+
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
+    public static Result removeCategory(String id, String cat){
+  	Long lId = Long.valueOf(id);
+  	Long lcat = Long.valueOf(cat);
+  	if(Secured.isOwnerOf(lId)) {
+	    Category.find.ref(lcat).delete();
+
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+   
+    public static Result enableItem(String id, String item){
+  	Long lId = Long.valueOf(id);
+  	Long lItem = Long.valueOf(item);
+  	if(Secured.isOwnerOf(lId)) {
+	 	MenuItem myItem = MenuItem.find.byId( lItem);
+	 	myItem.enabled = true;
+	 	myItem.save();
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
+  public static Result disableItem(String id, String item){
+  	Long lId = Long.valueOf(id);
+  	Long lItem = Long.valueOf(item);
+  	if(Secured.isOwnerOf(lId)) {
+	 	MenuItem myItem = MenuItem.find.byId( lItem);
+	 	myItem.enabled = false;
+	 	myItem.save();
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
+    public static Result enableCat(String id, String cat){
+  	Long lId = Long.valueOf(id);
+  	Long lCat = Long.valueOf(cat);
+  	if(Secured.isOwnerOf(lId)) {
+	 	Category myCat = Category.find.byId( lCat);
+	 	myCat.enabled = true;
+	 	myCat.save();
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
+  public static Result disableCat(String id, String cat){
+  	Long lId = Long.valueOf(id);
+  	Long lCat = Long.valueOf(cat);
+  	if(Secured.isOwnerOf(lId)) {
+	 	Category myCat= Category.find.byId( lCat);
+	 	myCat.enabled = false;
+	 	myCat.save();
+	    return redirect(controllers.routes.Protected.dashboard(id));
+  	}
+  	else{
+  		return forbidden("You do not have permission to use this resource!");
+  	}
+  }
+
 }

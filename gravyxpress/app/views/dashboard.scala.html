@@ -17,6 +17,8 @@
     <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#about">About section</a>
     <br>
     <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#hours">Hours section</a>
+    <br>
+    <a href="#menu">Menu section</a>
     </div>
     <div class="span10">    
         @form(routes.Protected.updateAbout(myRestaurantForm.get().id.toString)) {
@@ -33,6 +35,62 @@
             
         </div>
     }
+
+<div id="menu">
+    <h3>Menu</h3>
+        @form(routes.Protected.newCat(myRestaurantForm.get().id.toString)){
+        <div>
+            <label for="Add Category">New Category</label>
+            <input type="text" id="Add Category" name="Add Category" value="" placeholder="Category Name">
+            <input class="btn btn-small" value="Add" type="submit">
+            
+        </div>
+    }
+
+    @for(category <- myRestaurantForm.get().menu.categories){
+
+    <h4>@category.name</h4>    
+    @form(routes.Protected.removeCategory(myRestaurantForm.get().id.toString,category.id.toString)){
+    <button name="delete" class="btn btn-small delete">Delete Category</button>}
+    @if(category.enabled) {
+         <form method="POST" action="@routes.Protected.disableCat(myRestaurantForm.get().id.toString,category.id.toString)">
+        <input type="submit" name="disable" value="Disable Menu Category" class="btn btn-small">
+        </form>
+        } else {
+      <form method="POST" action="@routes.Protected.enableCat(myRestaurantForm.get().id.toString,category.id.toString)"><input type="submit" name="enable" value="Enable Menu Category" class="btn btn-small">            
+        </form>
+    }
+    @form(routes.Protected.newItem(myRestaurantForm.get().id.toString,category.id.toString)){
+        <div>
+            <label for="name">New Item</label>
+            <input type="text" id="Add Item" name="name" value="" placeholder="Name of Item">
+            <br>
+            <label for="price">Price</label>
+            <input type="text" id="price" name="price" value="" placeholder="0.00">
+            @textarea(field = myRestaurantForm("description"), args = 'class -> "field span8",'_label -> "Description")
+            <input type="submit" value="Add" class="btn btn-small">
+             
+        </div>
+    }
+     @for(menuItem <- category.items){
+        <p><pre width="50">@Html(menuItem.display())</pre>
+            <form method="POST" action="@routes.Protected.removeItem(myRestaurantForm.get().id.toString,menuItem.id.toString)">
+            <button name="delete" class="btn btn-small delete">Delete Menu Item</button>
+            </form>
+            @if(menuItem.enabled) {
+                 <form method="POST" action="@routes.Protected.disableItem(myRestaurantForm.get().id.toString,menuItem.id.toString)">
+                <input type="submit" name="disable" value="Disable Menu Item" class="btn btn-small">
+            </form>
+        } else {
+          <form method="POST" action="@routes.Protected.enableItem(myRestaurantForm.get().id.toString,menuItem.id.toString)"><input type="submit" name="enable" value="Enable Menu Item" class="btn btn-small">            
+    }
+        
+    
+    }
+}
+
+
+</div>
     <!--Body content-->
     </div>
     </div>

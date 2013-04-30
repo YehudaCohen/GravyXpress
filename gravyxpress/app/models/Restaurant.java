@@ -37,6 +37,9 @@ public class Restaurant extends Model {
 	@Column(columnDefinition = "TEXT")
 	public String about;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	public Menu menu = new Menu();
+
 // Find is a object that indexes the restaurant class and allows you to search for it by Long id.
 public static Finder<Long,Restaurant> find = new Finder( Long.class, Restaurant.class );
 

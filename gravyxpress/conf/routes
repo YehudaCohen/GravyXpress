@@ -16,6 +16,16 @@ GET		/dashboard/:id			   	 controllers.Protected.dashboard(id)
 
 POST	/dashboard/:id/about 		 controllers.Protected.updateAbout(id)
 POST	/dashboard/:id/hours 		 controllers.Protected.updateHours(id)
+POST	/dashboard/:id/newCat		 controllers.Protected.newCat(id)
+POST	/dashboard/:id/:cat/newItem	 controllers.Protected.newItem(id,cat)
+
+POST	/dashboard/:id/:menuItem/removeItem	 	 controllers.Protected.removeItem(id,menuItem)
+POST	/dashboard/:id/:cat/removeCategory	 	 controllers.Protected.removeCategory(id,cat)
+POST	/dashboard/:id/:item/enableItem	 	     controllers.Protected.enableItem(id,item)
+POST	/dashboard/:id/:item/disableItem 	     controllers.Protected.disableItem(id,item)
+
+POST	/dashboard/:id/:cat/enableCat	 	     controllers.Protected.enableCat(id,cat)
+POST	/dashboard/:id/:cat/disableCat 	     controllers.Protected.disableCat(id,cat)
 
 GET     /:restaurant                 controllers.Application.show(restaurant)
 
