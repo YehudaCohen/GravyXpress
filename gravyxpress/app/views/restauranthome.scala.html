@@ -3,6 +3,7 @@
 @main(myRestaurant.name){
 	<style>
       body {
+        padding: 40px;
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
@@ -57,21 +58,21 @@
         </div>
       </div>
     </div>
-    <div class="containter offset2">
-    <div class="container" id="home">
+    <div class="container-fluid span6">
+    <div class="container-fluid span6" id="home">
 
-      <h1>Hours of Operation</h1>
+      <h2>Hours of Operation</h2>
       <p>@Html(myRestaurant.hours)</p>
 
     </div>
-        <div class="container" id="about">
+        <div class="container-fluid span6" id="about">
 
-      <h1>About</h1>
+      <h2>About</h2>
       <p>@Html(myRestaurant.about)</p>
 
     </div>
 
-    <div class="container" width="50" id="menu">
+    <div class="container-fluid span6" width="50" id="menu">
       <p>
       <pre width="50">@Html(myRestaurant.menu.display())</pre>
     </p>

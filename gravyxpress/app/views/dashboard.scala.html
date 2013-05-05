@@ -3,6 +3,9 @@
 @import helper._
 @import helper.twitterBootstrap._
     @main("Dashboard"){
+    <style type="text/css">
+
+    </style>
 
 }{
     <div class="row-fluid">
@@ -49,17 +52,19 @@
 
     @for(category <- myRestaurantForm.get().menu.categories){
 
-    <h4>@category.name</h4>    
-    @form(routes.Protected.removeCategory(myRestaurantForm.get().id.toString,category.id.toString)){
+    <h4>@category.name</h4>
+    <div class="row-fluid">
+    @form(routes.Protected.removeCategory(myRestaurantForm.get().id.toString,category.id.toString), 'class-> "span2"){
     <button name="delete" class="btn btn-small delete">Delete Category</button>}
     @if(category.enabled) {
-         <form method="POST" action="@routes.Protected.disableCat(myRestaurantForm.get().id.toString,category.id.toString)">
-        <input type="submit" name="disable" value="Disable Menu Category" class="btn btn-small">
+         <form method="POST" class="span3" action="@routes.Protected.disableCat(myRestaurantForm.get().id.toString,category.id.toString)">
+        <button type="submit" name="disable"  class="btn btn-small">Disable Category</button>
         </form>
         } else {
-      <form method="POST" action="@routes.Protected.enableCat(myRestaurantForm.get().id.toString,category.id.toString)"><input type="submit" name="enable" value="Enable Menu Category" class="btn btn-small">            
+      <form class="span3" method="POST" action="@routes.Protected.enableCat(myRestaurantForm.get().id.toString,category.id.toString)"><button type="submit" name="disable"  class="btn btn-small">Enable Category</button>           
         </form>
     }
+</div>
     @form(routes.Protected.newItem(myRestaurantForm.get().id.toString,category.id.toString)){
         <div>
             <label for="name">New Item</label>
@@ -74,18 +79,20 @@
     }
      @for(menuItem <- category.items){
         <p><pre width="50">@Html(menuItem.display())</pre>
-            <form method="POST" action="@routes.Protected.removeItem(myRestaurantForm.get().id.toString,menuItem.id.toString)">
-            <button name="delete" class="btn btn-small delete">Delete Menu Item</button>
+            <div class="row-fluid">
+            <form method="POST" class= "span2" action="@routes.Protected.removeItem(myRestaurantForm.get().id.toString,menuItem.id.toString)">
+            <button name="delete " class="btn btn-small">Delete Item</button>
             </form>
             @if(menuItem.enabled) {
-                 <form method="POST" action="@routes.Protected.disableItem(myRestaurantForm.get().id.toString,menuItem.id.toString)">
-                <input type="submit" name="disable" value="Disable Menu Item" class="btn btn-small">
+                 <form method="POST" action="@routes.Protected.disableItem(myRestaurantForm.get().id.toString,menuItem.id.toString)" class= "span2">
+                <button type="submit" name="disable"  class="btn btn-small">Disable Item</button>
             </form>
         } else {
-          <form method="POST" action="@routes.Protected.enableItem(myRestaurantForm.get().id.toString,menuItem.id.toString)"><input type="submit" name="enable" value="Enable Menu Item" class="btn btn-small">            
+          <form method="POST" class= "span2" action="@routes.Protected.enableItem(myRestaurantForm.get().id.toString,menuItem.id.toString)"><button type="submit" name="disable"  class="btn btn-small">Enable Item</button>
+          </form>           
     }
         
-    
+    </div> 
     }
 }
 

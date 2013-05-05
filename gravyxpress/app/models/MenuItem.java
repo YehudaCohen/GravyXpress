@@ -36,7 +36,7 @@ public class MenuItem extends Model {
 	}
 
 	public String display(){
-		return this.name+ "\t\t\t$" + String.valueOf(this.price)+"<br>"+
+		return this.name+ "&#09;&#09;&#09;&#09;$" + String.valueOf(this.price)+"<br>"+
 					this.description+"<br>";
 	}
 	

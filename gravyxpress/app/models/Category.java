@@ -35,7 +35,7 @@ public class Category extends Model {
 		for (int i = 0; i < this.items.size(); i++){
 			MenuItem menuItem = items.get(i);
 			if (menuItem.enabled){
-			disp += menuItem.display();
+			disp += menuItem.display()+"<br>";
 			}
 		}
 		disp += "<br>";
