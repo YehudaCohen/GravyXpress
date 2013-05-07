@@ -13,9 +13,24 @@
 }
 
     .row-fluid > .span-fixed-sidebar {
-    margin-left: 150px;
-    margin-top:90px;
+        margin-top:90px;
+        margin-left: 150px;
     }
+section:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -90px; 
+  height: 90px; 
+  visibility: hidden; 
+}
+h3:before{
+     display: block; 
+  content: " "; 
+  margin-top: -90px; 
+  height: 90px; 
+  visibility: hidden;  
+}
+
     </style>
 
 }{  <div class=" navbar navbar-fixed-top">
@@ -37,31 +52,35 @@
     <div class="container-fluid">
     <div class="row-fluid">
     <div class= "sidebar-nav-fixed">
+
     <!--Sidebar content-->
-    <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#about">About section</a>
+    <a href="#about">About section</a>
     <br>
-    <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#hours">Hours section</a>
+    <a href="#hours">Hours section</a>
     <br>
     <a href="#menu">Menu section</a>
     </div>
-    <div class="span10 span-fixed-sidebar">    
+    <div class="span10 span-fixed-sidebar"> 
+        <section id="about">
         @form(routes.Protected.updateAbout(myRestaurantForm.get().id.toString)) {
         <div>
             @textarea(field = myRestaurantForm("about"), args = 'class -> "field span8",'_label -> "About Us", 'value ->myRestaurantForm.get().about)
             <input class="btn btn-medium" value="Save" type="submit">
             
         </div>
-    }
+    }</section>
+    <section id="hours">
         @form(routes.Protected.updateHours(myRestaurantForm.get().id.toString)) {
-        <div>
+        <div >
             @textarea(field = myRestaurantForm("hours"), args = 'class -> "field span8",'_label -> "Hours of Operation", 'value ->myRestaurantForm.get().hours)
             <input class="btn btn-medium" value="Save" type="submit">
             
         </div>
     }
+</section>
 
-<div id="menu">
-    <h3>Menu</h3>
+<div>
+    <h3 id="menu">Menu</h3>
         @form(routes.Protected.newCat(myRestaurantForm.get().id.toString)){
         <div>
             <label for="Add Category">New Category</label>
@@ -119,6 +138,7 @@
 
 
 </div>
+
     <!--Body content-->
     </div>
     </div>
