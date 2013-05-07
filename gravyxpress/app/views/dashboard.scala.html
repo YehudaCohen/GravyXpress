@@ -4,20 +4,39 @@
 @import helper.twitterBootstrap._
     @main("Dashboard"){
     <style type="text/css">
+        .sidebar-nav-fixed {
+    padding: 9px 0;
+    position:fixed;
+    left:20px;
+    top:90px;
+    width:250px;
+}
 
+    .row-fluid > .span-fixed-sidebar {
+    margin-left: 150px;
+    margin-top:90px;
+    }
     </style>
 
-}{
+}{  <div class=" navbar navbar-fixed-top">
+      <div class="navbar-inner">
+           <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+
     <div class="row-fluid">
-        <h2>GravyXpress -- 
+        <div class="span10"><h3>GravyXpress -- 
 
-            <a href="/@myRestaurantForm.get().name">@myRestaurantForm.get().name</a> Dashboard</h2>
-
+            <a href="/@myRestaurantForm.get().name">@myRestaurantForm.get().name</a> Dashboard</h3>
+        </div>
+        <div class="span2">
         <a href="/logout">Logout</a>
+    </div>
+    </div>
+    </div>
     </div>
     <div class="container-fluid">
     <div class="row-fluid">
-    <div class="span2">
+    <div class= "sidebar-nav-fixed">
     <!--Sidebar content-->
     <a href="@routes.Protected.dashboard(myRestaurantForm.get().id.toString)#about">About section</a>
     <br>
@@ -25,7 +44,7 @@
     <br>
     <a href="#menu">Menu section</a>
     </div>
-    <div class="span10">    
+    <div class="span10 span-fixed-sidebar">    
         @form(routes.Protected.updateAbout(myRestaurantForm.get().id.toString)) {
         <div>
             @textarea(field = myRestaurantForm("about"), args = 'class -> "field span8",'_label -> "About Us", 'value ->myRestaurantForm.get().about)
